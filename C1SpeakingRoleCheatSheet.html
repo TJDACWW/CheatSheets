@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C1 Speaking Roles Cheat Sheet</title>
+  <style>
+@page{
+  size:A4;
+  margin:12mm;
+}
+
+body{
+  font-family: Georgia, "Times New Roman", serif;
+  background:#f8f6f2;
+  color:#222;
+  font-size:11pt;
+  line-height:1.45;
+}
+
+.wrapper{
+  max-width:1000px;
+  margin:auto;
+}
+
+.title{
+  text-align:left;
+  font-size:30pt;
+  font-weight:normal;
+  letter-spacing:-1px;
+  margin-bottom:2px;
+}
+
+.subtitle{
+  font-size:10pt;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  color:#777;
+  margin-bottom:14px;
+}
+
+.controls{
+  margin-bottom:20px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.random-btn{
+  font-family: Georgia, "Times New Roman", serif;
+  font-size:10pt;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  background:#222;
+  color:#fff;
+  border:none;
+  padding:9px 20px;
+  cursor:pointer;
+  transition: background 0.15s;
+}
+
+.random-btn:hover{
+  background:#444;
+}
+
+.random-hint{
+  font-size:9pt;
+  color:#999;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.card{
+  background:#fffdf9;
+  border:1px solid #d9d2c7;
+  padding:14px 16px;
+  position:relative;
+  break-inside:avoid;
+  transition: box-shadow 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:5px;
+  background:#222;
+  transition: background 0.2s;
+}
+
+/* Dimmed state when another card is highlighted */
+.grid.has-highlight .card:not(.highlighted){
+  opacity:0.35;
+}
+
+/* Highlighted card */
+.card.highlighted{
+  border-color:#222;
+  box-shadow: 0 0 0 3px #222;
+  background:#fff;
+  opacity:1;
+}
+
+.card.highlighted::before{
+  background:#222;
+  height:6px;
+}
+
+/* Close button */
+.close-btn{
+  display:none;
+  position:absolute;
+  top:-12px;
+  right:-12px;
+  width:26px;
+  height:26px;
+  border-radius:50%;
+  background:#222;
+  color:#fff;
+  border:2px solid #fff;
+  font-size:13px;
+  line-height:1;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  transition: background 0.15s;
+  z-index:10;
+}
+
+.close-btn:hover{
+  background:#555;
+}
+
+.card.highlighted .close-btn{
+  display:flex;
+}
+
+.role{
+  font-size:15pt;
+  margin:0 0 10px 0;
+  font-weight:bold;
+}
+
+.label{
+  display:inline-block;
+  font-size:9pt;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  color:#666;
+  margin-bottom:6px;
+}
+
+ul{
+  margin:0 0 12px 18px;
+  padding:0;
+}
+
+li{
+  margin-bottom:4px;
+}
+
+.phrases{
+  border-left:3px solid #222;
+  padding-left:10px;
+  font-style:italic;
+}
+
+.phrases div{
+  margin-bottom:4px;
+}
+
+.footer{
+  margin-top:18px;
+  text-align:right;
+  font-size:9pt;
+  color:#777;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+@media print {
+  .controls { display: none; }
+  .close-btn { display: none !important; }
+  .grid.has-highlight .card:not(.highlighted) { opacity: 1; }
+  .card.highlighted { box-shadow: none; }
+}
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <div class="title">C1 Speaking Roles Cheat Sheet</div>
+  <div class="subtitle">Conversation personalities for pair speaking practice</div>
+
+  <div class="controls">
+    <button class="random-btn" onclick="pickRandom()">&#9670; Random Role</button>
+    <span class="random-hint" id="hint"></span>
+  </div>
+
+  <div class="grid" id="grid">
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Interrupts Often</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Interrupt fairly often to add ideas.</li>
+        <li>React quickly to what your partner says.</li>
+        <li>Redirect the discussion slightly when useful.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"Sorry to interrupt, but ..."</div>
+        <div>"Can I just add something there?"</div>
+        <div>"Before you move on, ..."</div>
+        <div>"Actually, I’d say ..."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Indecisive</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Sound hesitant and uncertain.</li>
+        <li>Weigh up different options.</li>
+        <li>Delay making a clear decision.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"I’m in two minds about that."</div>
+        <div>"It’s hard to say, really."</div>
+        <div>"Part of me thinks ..., but at the same time ..."</div>
+        <div>"I can see both sides, to be honest."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Always Asks Follow-Up Questions</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Focus on extending your partner’s ideas.</li>
+        <li>Ask questions that develop the discussion.</li>
+        <li>Keep your own answers brief.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"What makes you say that?"</div>
+        <div>"How would that work in practice?"</div>
+        <div>"Do you think that’s always the case?"</div>
+        <div>"Could you give an example of that?"</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Always Politely Disagrees</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Challenge ideas in a calm, respectful way.</li>
+        <li>Acknowledge the point before disagreeing.</li>
+        <li>Give a reason for your view.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"I can see your point, but I’m not sure I agree."</div>
+        <div>"That’s a fair point, although ..."</div>
+        <div>"I take what you mean, but I’d argue that ..."</div>
+        <div>"I’m not entirely convinced, because ..."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Summarise Before Adding</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Briefly restate your partner’s idea.</li>
+        <li>Show that you have listened carefully.</li>
+        <li>Then build on the point.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"So, if I understand you correctly, ..."</div>
+        <div>"What you’re saying is that ..."</div>
+        <div>"You seem to be arguing that ..."</div>
+        <div>"Building on that, I’d say ..."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Ask for Clarification</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Ask for more detail when something is unclear.</li>
+        <li>Push your partner to explain their meaning.</li>
+        <li>Focus on precision.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"What exactly do you mean by that?"</div>
+        <div>"Could you clarify what you mean?"</div>
+        <div>"I’m not sure I quite follow you."</div>
+        <div>"Would you mind explaining that a bit further?"</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Minimalist</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Keep answers short, but still contribute something meaningful.</li>
+        <li>Add a brief reason or example.</li>
+        <li>Leave space for your partner to continue.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"I’d say yes, mainly because it’s more practical."</div>
+        <div>"Possibly, though it depends on the context."</div>
+        <div>"Not necessarily, but I can see why people think that."</div>
+        <div>"I’m not fully convinced, to be honest."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Speculator</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Avoid sounding too certain.</li>
+        <li>Explore possibilities and alternatives.</li>
+        <li>Use tentative language naturally.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"It might be a question of ..."</div>
+        <div>"I suppose it could be because ..."</div>
+        <div>"Perhaps people tend to ..."</div>
+        <div>"One possible explanation is that ..."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Unbiased</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Present both sides of the argument.</li>
+        <li>Avoid taking a strong position too early.</li>
+        <li>End with a balanced conclusion.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"There are valid arguments on both sides."</div>
+        <div>"On the one hand ..., whereas on the other ..."</div>
+        <div>"It largely depends on the individual and the situation."</div>
+        <div>"Overall, I’d say there isn’t a simple answer."</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <button class="close-btn" onclick="clearHighlight()" title="Close">&#x2715;</button>
+      <div class="role">Skeptic</div>
+      <div class="label">Behaviour</div>
+      <ul>
+        <li>Question assumptions and claims.</li>
+        <li>Challenge whether ideas are realistic or well supported.</li>
+        <li>Ask your partner to justify their view.</li>
+      </ul>
+      <div class="label">Say</div>
+      <div class="phrases">
+        <div>"I’m not sure that really holds true in practice."</div>
+        <div>"That sounds plausible, but is it actually realistic?"</div>
+        <div>"I’d question whether that would work for most people."</div>
+        <div>"What makes you think that would be effective?"</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer">C1 Speaking Practice Notes</div>
+
+</div>
+
+<script>
+  let lastIndex = -1;
+
+  function pickRandom() {
+    const grid = document.getElementById('grid');
+    const cards = Array.from(grid.querySelectorAll('.card'));
+    const total = cards.length;
+
+    // Pick a different card from the last one
+    let idx;
+    do {
+      idx = Math.floor(Math.random() * total);
+    } while (idx === lastIndex && total > 1);
+    lastIndex = idx;
+
+    // Remove previous highlight
+    cards.forEach(c => c.classList.remove('highlighted'));
+    grid.classList.add('has-highlight');
+
+    // Highlight chosen card
+    cards[idx].classList.add('highlighted');
+    cards[idx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Update hint
+    const roleName = cards[idx].querySelector('.role').textContent;
+    document.getElementById('hint').textContent = roleName;
+  }
+
+  function clearHighlight() {
+    const grid = document.getElementById('grid');
+    grid.querySelectorAll('.card').forEach(c => c.classList.remove('highlighted'));
+    grid.classList.remove('has-highlight');
+    document.getElementById('hint').textContent = '';
+    lastIndex = -1;
+  }
+</script>
+
+</body>
+</html>
